@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundFX from "@/components/BackgroundFX";
+import { Toaster } from "@/components/ui/toaster";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -74,13 +75,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${space.variable} ${jetbrains.variable}`}
+      className={`dark ${inter.variable} ${space.variable} ${jetbrains.variable}`}
     >
-      <body className="min-h-screen bg-ink-950 font-sans text-slate-200 antialiased">
+      <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <BackgroundFX />
         <Navbar />
         <main className="relative z-10">{children}</main>
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

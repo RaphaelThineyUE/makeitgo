@@ -2,24 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #07080b;
-  --fg: #e6e8ee;
-  --muted: #8a93a6;
-  --accent: #ffb020;
-  --accent-hot: #ff8a1c;
+/*
+  shadcn/ui theme tokens (HSL triplets, no `hsl()` wrapper).
+  Dark theme only — re-mapped to the MakeItGo amber-on-ink palette.
+  --background = ink-950, --primary = amber-glow.
+*/
+@layer base {
+  :root {
+    --background: 225 18% 4%;            /* ink-950 */
+    --foreground: 220 15% 92%;           /* slate-200 */
+
+    --card: 225 18% 6%;                  /* ink-900 */
+    --card-foreground: 220 15% 92%;
+
+    --popover: 225 18% 6%;
+    --popover-foreground: 220 15% 92%;
+
+    --primary: 38 100% 56%;              /* amber-glow #ffb020 */
+    --primary-foreground: 225 18% 4%;    /* dark text on amber */
+
+    --secondary: 224 14% 12%;            /* ink-800 */
+    --secondary-foreground: 220 15% 92%;
+
+    --muted: 224 14% 12%;
+    --muted-foreground: 220 8% 60%;      /* slate-400 */
+
+    --accent: 38 100% 56%;
+    --accent-foreground: 225 18% 4%;
+
+    --destructive: 0 75% 58%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 12% 16%;               /* white/5-ish */
+    --input: 220 12% 16%;
+    --ring: 38 100% 56%;                 /* amber focus ring */
+
+    --radius: 0.75rem;
+  }
+
+  /* Explicit dark class mirror (we ship dark-only, but keep parity for shadcn consumers) */
+  .dark {
+    --background: 225 18% 4%;
+    --foreground: 220 15% 92%;
+    --card: 225 18% 6%;
+    --card-foreground: 220 15% 92%;
+    --popover: 225 18% 6%;
+    --popover-foreground: 220 15% 92%;
+    --primary: 38 100% 56%;
+    --primary-foreground: 225 18% 4%;
+    --secondary: 224 14% 12%;
+    --secondary-foreground: 220 15% 92%;
+    --muted: 224 14% 12%;
+    --muted-foreground: 220 8% 60%;
+    --accent: 38 100% 56%;
+    --accent-foreground: 225 18% 4%;
+    --destructive: 0 75% 58%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 12% 16%;
+    --input: 220 12% 16%;
+    --ring: 38 100% 56%;
+  }
 }
 
-html,
-body {
-  background: var(--bg);
-  color: var(--fg);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-html {
-  scroll-behavior: smooth;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html,
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 ::selection {
@@ -43,7 +100,6 @@ html {
   background-size: 24px 24px;
 }
 
-/* Radial spotlight */
 .spotlight::before {
   content: "";
   position: absolute;
@@ -58,7 +114,6 @@ html {
   z-index: 0;
 }
 
-/* Gradient text */
 .text-gradient {
   background: linear-gradient(135deg, #ffd27a 0%, #ffb020 40%, #ff5f13 100%);
   -webkit-background-clip: text;
@@ -66,7 +121,6 @@ html {
   color: transparent;
 }
 
-/* Glassy card */
 .glass {
   background: linear-gradient(
     180deg,
@@ -90,7 +144,6 @@ html {
   box-shadow: 0 20px 60px -20px rgba(255, 138, 28, 0.35);
 }
 
-/* Animated dotted accent line */
 .accent-line {
   height: 1px;
   background: linear-gradient(
@@ -101,7 +154,6 @@ html {
   );
 }
 
-/* Shimmer for CTA */
 .shimmer {
   background: linear-gradient(
     110deg,
@@ -113,7 +165,6 @@ html {
   background-size: 200% 100%;
 }
 
-/* Noise overlay */
 .noise::after {
   content: "";
   position: absolute;
@@ -124,14 +175,12 @@ html {
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-/* Smooth focus rings, amber themed */
 *:focus-visible {
   outline: 2px solid rgba(255, 176, 32, 0.6);
   outline-offset: 2px;
   border-radius: 6px;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

@@ -1,14 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, ArrowUpRight, CheckCircle2, AlertTriangle } from "lucide-react";
+import { Loader2, ArrowUpRight, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { site } from "@/lib/site";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const formspreeId = site.formspreeId;
   const endpoint = formspreeId
@@ -23,7 +29,6 @@ export default function ContactForm() {
     const data = new FormData(form);
 
     if (!endpoint) {
-      // No Formspree configured yet — fall back to mailto
       const body = [
         `Name: ${data.get("name")}`,
         `Company: ${data.get("company") || "—"}`,
@@ -51,9 +56,21 @@ export default function ContactForm() {
       }
       setStatus("success");
       form.reset();
+      toast({
+        title: "Brief received",
+        description:
+          "Thanks — Raphi will be in touch within one business day.",
+      });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
+      const message =
+        err instanceof Error ? err.message : "Something went wrong";
+      setError(message);
       setStatus("error");
+      toast({
+        variant: "destructive",
+        title: "Submission failed",
+        description: message,
+      });
     }
   }
 
@@ -104,7 +121,9 @@ export default function ContactForm() {
       {!formspreeId && (
         <p className="rounded-lg border border-amber-glow/25 bg-amber-glow/5 px-3 py-2 text-xs text-amber-glow">
           Form backend not configured yet — submissions currently open your
-          email client. Set <code className="font-mono">NEXT_PUBLIC_FORMSPREE_ID</code> to enable direct submissions.
+          email client. Set{" "}
+          <code className="font-mono">NEXT_PUBLIC_FORMSPREE_ID</code> to enable
+          direct submissions.
         </p>
       )}
 
@@ -115,22 +134,23 @@ export default function ContactForm() {
         </p>
       )}
 
-      <button
+      <Button
         type="submit"
+        size="lg"
         disabled={status === "submitting"}
-        className="group inline-flex items-center justify-center gap-2 rounded-full bg-amber-gradient px-5 py-3 text-sm font-medium text-ink-950 shadow-glow-sm transition-all hover:-translate-y-0.5 hover:shadow-glow disabled:opacity-60"
+        className="group"
       >
         {status === "submitting" ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" /> Sending…
+            <Loader2 className="animate-spin" /> Sending…
           </>
         ) : (
           <>
             Send the brief
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <ArrowUpRight className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </>
         )}
-      </button>
+      </Button>
     </form>
   );
 }
@@ -150,31 +170,30 @@ function Field({
   textarea?: boolean;
   placeholder?: string;
 }) {
-  const common =
-    "w-full rounded-xl border border-white/10 bg-ink-900/60 px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-amber-glow/50 focus:outline-none";
+  const id = `field-${name}`;
   return (
-    <label className="block">
-      <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">
+    <div className="grid gap-1.5">
+      <Label htmlFor={id}>
         {label}
         {required && <span className="ml-1 text-amber-glow">*</span>}
-      </span>
+      </Label>
       {textarea ? (
-        <textarea
+        <Textarea
+          id={id}
           name={name}
           required={required}
           rows={5}
           placeholder={placeholder}
-          className={common}
         />
       ) : (
-        <input
+        <Input
+          id={id}
           type={type}
           name={name}
           required={required}
           placeholder={placeholder}
-          className={common}
         />
       )}
-    </label>
+    </div>
   );
 }

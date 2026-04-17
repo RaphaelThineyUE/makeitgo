@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Sparkles, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export default function Hero() {
   return (
@@ -15,10 +17,10 @@ export default function Hero() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="relative z-10 max-w-4xl"
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-glow/25 bg-amber-glow/5 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-amber-glow">
+          <Badge className="mb-6">
             <Sparkles className="h-3.5 w-3.5" />
             AI implementation, actually shipped
-          </div>
+          </Badge>
 
           <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl">
             We help companies
@@ -28,8 +30,7 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-400 md:text-lg">
-            Buying ChatGPT licenses for everyone is not a strategy.
-            {" "}
+            Buying ChatGPT licenses for everyone is not a strategy.{" "}
             <span className="text-slate-200">
               We come in, analyze your real processes, design automations that
               matter, and ship production systems
@@ -39,22 +40,18 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link
-              href="/contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-amber-gradient px-5 py-3 text-sm font-medium text-ink-950 shadow-glow-sm transition-all hover:-translate-y-0.5 hover:shadow-glow"
-            >
-              Start a project
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
-            <a
-              href={site.bookingUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm text-white hover:border-amber-glow/40 hover:text-amber-glow"
-            >
-              Book a 30-min intro
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </a>
+            <Button asChild size="lg" className="group">
+              <Link href="/contact">
+                Start a project
+                <ArrowUpRight className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="group">
+              <a href={site.bookingUrl} target="_blank" rel="noreferrer">
+                Book a 30-min intro
+                <ArrowUpRight className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
+            </Button>
           </div>
 
           <dl className="mt-14 grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-4">
@@ -77,7 +74,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Decorative floating code card */}
       <motion.div
         aria-hidden
         initial={{ opacity: 0, y: 30 }}

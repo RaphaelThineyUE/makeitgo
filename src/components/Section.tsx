@@ -1,4 +1,6 @@
 import { ReactNode } from "react";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 type Props = {
   eyebrow?: string;
@@ -22,19 +24,23 @@ export default function Section({
   return (
     <section
       id={id}
-      className={`relative mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 md:py-28 ${className}`}
+      className={cn(
+        "relative mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 md:py-28",
+        className,
+      )}
     >
       {(eyebrow || title || subtitle) && (
         <div
-          className={`mb-12 max-w-3xl ${
-            align === "center" ? "mx-auto text-center" : ""
-          }`}
+          className={cn(
+            "mb-12 max-w-3xl",
+            align === "center" && "mx-auto text-center",
+          )}
         >
           {eyebrow && (
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-glow/25 bg-amber-glow/5 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-amber-glow">
+            <Badge className="mb-4">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-glow shadow-[0_0_10px_rgba(255,176,32,0.8)]" />
               {eyebrow}
-            </div>
+            </Badge>
           )}
           {title && (
             <h2 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">

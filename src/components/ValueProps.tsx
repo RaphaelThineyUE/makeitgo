@@ -6,6 +6,7 @@ import {
   Zap,
   LineChart,
 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const items = [
   {
@@ -44,20 +45,19 @@ export default function ValueProps() {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {items.map((it) => (
-        <div
-          key={it.title}
-          className="glass glass-hover rounded-2xl p-5"
-        >
-          <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-glow/10 text-amber-glow ring-1 ring-inset ring-amber-glow/25">
-            <it.icon className="h-5 w-5" />
-          </div>
-          <h3 className="font-display text-base font-semibold text-white">
-            {it.title}
-          </h3>
-          <p className="mt-2 text-sm leading-relaxed text-slate-400">
-            {it.body}
-          </p>
-        </div>
+        <Card key={it.title}>
+          <CardContent className="p-5">
+            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-glow/10 text-amber-glow ring-1 ring-inset ring-amber-glow/25">
+              <it.icon className="h-5 w-5" />
+            </div>
+            <h3 className="font-display text-base font-semibold text-white">
+              {it.title}
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              {it.body}
+            </p>
+          </CardContent>
+        </Card>
       ))}
     </div>
   );

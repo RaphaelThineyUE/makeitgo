@@ -14,7 +14,7 @@ export const site = {
   bookingUrl:
     process.env.NEXT_PUBLIC_BOOKING_URL ??
     "https://calendly.com/raphi-makeitgo/intro",
-  formspreeId: process.env.NEXT_PUBLIC_FORMSPREE_ID ?? "",
+  formspreeId: process.env.NEXT_PUBLIC_FORMSPREE_ID ?? "xyklwjdp",
   linkedin: "https://linkedin.com/in/raphaeldambournet",
   founder: {
     name: "Raphael Dambournet",

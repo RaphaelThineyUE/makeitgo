@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Search, Compass, Rocket } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const steps = [
   {
@@ -45,32 +46,35 @@ export default function ServicePillars() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: i * 0.08 }}
-          className="glass glass-hover group relative overflow-hidden rounded-2xl p-6"
         >
-          <div className="absolute right-4 top-4 font-mono text-[11px] tracking-[0.18em] text-slate-600">
-            {s.step}
-          </div>
-          <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-glow/10 text-amber-glow ring-1 ring-inset ring-amber-glow/25">
-            <s.icon className="h-5 w-5" />
-          </div>
-          <h3 className="font-display text-xl font-semibold text-white">
-            {s.title}
-          </h3>
-          <p className="mt-3 text-sm leading-relaxed text-slate-400">
-            {s.body}
-          </p>
-          <ul className="mt-5 space-y-1.5">
-            {s.bullets.map((b) => (
-              <li
-                key={b}
-                className="flex items-center gap-2 font-mono text-[12px] text-slate-400"
-              >
-                <span className="h-1 w-1 rounded-full bg-amber-glow" />
-                {b}
-              </li>
-            ))}
-          </ul>
-          <div className="accent-line mt-6 opacity-0 transition-opacity group-hover:opacity-100" />
+          <Card className="group relative h-full overflow-hidden">
+            <CardContent className="p-6">
+              <div className="absolute right-4 top-4 font-mono text-[11px] tracking-[0.18em] text-slate-600">
+                {s.step}
+              </div>
+              <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-glow/10 text-amber-glow ring-1 ring-inset ring-amber-glow/25">
+                <s.icon className="h-5 w-5" />
+              </div>
+              <h3 className="font-display text-xl font-semibold text-white">
+                {s.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+                {s.body}
+              </p>
+              <ul className="mt-5 space-y-1.5">
+                {s.bullets.map((b) => (
+                  <li
+                    key={b}
+                    className="flex items-center gap-2 font-mono text-[12px] text-slate-400"
+                  >
+                    <span className="h-1 w-1 rounded-full bg-amber-glow" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+              <div className="accent-line mt-6 opacity-0 transition-opacity group-hover:opacity-100" />
+            </CardContent>
+          </Card>
         </motion.div>
       ))}
     </div>
