@@ -91,7 +91,7 @@ export default function Footer() {
             © {year} {site.legal}. All rights reserved.
           </p>
           <p className="font-mono">
-            Built to make IT go. Based in {site.founder.location}.
+            Built to MakeItGo, LLC. Based in {site.founder.location}. v{process.env.NEXT_PUBLIC_APP_VERSION ?? "0.1.0"}
           </p>
         </div>
       </div>
