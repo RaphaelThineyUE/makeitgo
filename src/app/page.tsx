@@ -1,4 +1,20 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
+
+export const metadata: Metadata = {
+  title: "AI Implementation Consultant — MakeItGo",
+  description:
+    "MakeItGo helps businesses implement AI that actually ships — workflow analysis, automation design, and production systems. Senior operators, not slide decks.",
+  keywords: [
+    "AI implementation consultant",
+    "hire AI consultant for business",
+    "implement AI in the workplace",
+    "AI automation consulting",
+    "AI consultant for small business",
+    "workplace AI automation",
+    "AI strategy and implementation",
+  ],
+};
 import ClientMarquee from "@/components/ClientMarquee";
 import Section from "@/components/Section";
 import ServicePillars from "@/components/ServicePillars";

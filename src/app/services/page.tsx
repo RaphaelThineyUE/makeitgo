@@ -5,9 +5,18 @@ import CTASection from "@/components/CTASection";
 import { Check } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "AI Implementation Services",
   description:
-    "How MakeItGo implements AI: analyze, strategize, implement. Engagement models, deliverables, and technologies we work with.",
+    "Hands-on AI implementation consulting for businesses — AI Readiness Sprint, Pilot Build, and Embedded CTO engagements. Senior operators, fixed scope, measurable ROI.",
+  keywords: [
+    "AI implementation services",
+    "AI consulting engagement models",
+    "AI readiness assessment",
+    "AI pilot build",
+    "fractional CTO AI",
+    "workplace automation services",
+    "AI automation consultant North America",
+  ],
 };
 
 const engagements = [
@@ -52,6 +61,42 @@ const engagements = [
   },
 ];
 
+const faqs = [
+  {
+    q: "What does an AI implementation consultant actually do?",
+    a: "We analyze your real business processes, identify where AI and automation create measurable value, then build and ship the systems — not decks. That means production code, integrated with your existing tools, with an evaluation harness so you know it's working.",
+  },
+  {
+    q: "How is this different from hiring a big consulting firm?",
+    a: "You get senior operators, not a junior team managed from a distance. No six-month discovery. No pyramid staffing. A small, experienced team that embeds in your context, makes decisions, and ships. Billing stops when value stops.",
+  },
+  {
+    q: "We already use ChatGPT — do we need an AI consultant?",
+    a: "Probably not for ChatGPT itself. You need one when you want AI integrated into your actual workflows — your CRM, your documents, your operations data, your compliance posture. That's the gap between a license and a working system.",
+  },
+  {
+    q: "What industries do you work in?",
+    a: "Our deepest experience is in financial services, healthcare, and renewable energy — all regulated environments where data governance, security, and reliability aren't optional. We also take on SaaS and operations-heavy businesses that fit the same profile.",
+  },
+  {
+    q: "How quickly can we start?",
+    a: "The AI Readiness Sprint can start within a week of scoping. Book a 30-minute intro and we'll tell you what a first engagement looks like for your situation.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.a,
+    },
+  })),
+};
+
 const stack = [
   { group: "LLMs & AI", items: ["OpenAI", "Anthropic (Claude)", "Azure OpenAI", "Local models"] },
   { group: "Frameworks", items: ["Agents & MCP", "RAG pipelines", "Document intelligence", "Evaluation harnesses"] },
@@ -64,6 +109,10 @@ const stack = [
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Section
         eyebrow="Services"
         title={
@@ -143,6 +192,28 @@ export default function ServicesPage() {
             </div>
           ))}
         </div>
+      </Section>
+
+      <Section
+        eyebrow="FAQ"
+        title={
+          <>
+            Common questions, <span className="text-gradient">straight answers</span>.
+          </>
+        }
+      >
+        <dl className="space-y-4">
+          {faqs.map((f) => (
+            <div key={f.q} className="glass rounded-2xl p-6">
+              <dt className="font-display text-base font-semibold text-white">
+                {f.q}
+              </dt>
+              <dd className="mt-3 text-sm leading-relaxed text-slate-400">
+                {f.a}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </Section>
 
       <CTASection />

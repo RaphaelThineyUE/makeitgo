@@ -3,9 +3,17 @@ import Section from "@/components/Section";
 import CTASection from "@/components/CTASection";
 
 export const metadata: Metadata = {
-  title: "Case Studies",
+  title: "AI Implementation Case Studies — Finance, Healthcare, Energy",
   description:
-    "Selected engagements from MakeItGo's founder across renewable energy, healthcare, and financial services.",
+    "Real AI and automation implementations across regulated industries — renewable energy IoT, clinical mobile platforms, hedge fund data pipelines, and privacy SaaS.",
+  keywords: [
+    "AI implementation case studies",
+    "enterprise AI examples",
+    "AI automation healthcare",
+    "AI financial services",
+    "industrial AI renewable energy",
+    "AI consulting results",
+  ],
 };
 
 const studies = [

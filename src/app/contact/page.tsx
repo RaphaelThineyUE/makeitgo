@@ -5,9 +5,15 @@ import { site } from "@/lib/site";
 import { Calendar, Mail, Phone, Linkedin, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact — Hire an AI Implementation Consultant",
   description:
-    "Tell us where the friction is. We'll tell you whether we can help and how fast.",
+    "Ready to implement AI in your business? Book a 30-minute intro or send a brief. We'll tell you whether we can help and how fast.",
+  keywords: [
+    "hire AI consultant",
+    "contact AI implementation consultant",
+    "AI consulting inquiry",
+    "book AI consultant",
+  ],
 };
 
 export default function ContactPage() {

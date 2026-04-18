@@ -1,12 +1,12 @@
 {
   "name": "makeitgo-site",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "license": "MIT",
   "description": "MakeItGo, LLC — front-door marketing site. We help companies actually implement AI.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm version patch --no-git-tag-version && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"

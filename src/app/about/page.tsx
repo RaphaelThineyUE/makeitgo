@@ -5,9 +5,17 @@ import { site } from "@/lib/site";
 import { GraduationCap, Languages, MapPin, Briefcase } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About — Raphael Dambournet, AI Implementation Consultant",
   description:
-    "MakeItGo is founded by Raphael Dambournet — 20+ years scaling enterprise software across finance, healthcare, and renewable energy.",
+    "Raphael Dambournet — 20+ years building enterprise platforms in finance, healthcare, and renewable energy. Now helping companies implement AI that actually ships.",
+  keywords: [
+    "Raphael Dambournet",
+    "AI implementation consultant",
+    "enterprise AI consultant",
+    "CTO AI advisor",
+    "AI consulting Miami",
+    "AI automation expert",
+  ],
 };
 
 const timeline = [

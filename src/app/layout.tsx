@@ -35,16 +35,21 @@ export const metadata: Metadata = {
   },
   description: site.description,
   keywords: [
-    "AI implementation",
-    "AI consulting",
-    "enterprise AI",
-    "automation",
-    "process automation",
-    "AI strategy",
-    "Azure OpenAI",
-    "agents",
-    "MCP",
-    "CTO advisory",
+    "AI implementation consultant",
+    "hire AI consultant for business",
+    "AI automation consulting",
+    "implement AI in the workplace",
+    "AI consultant for small business",
+    "AI process automation consultant",
+    "enterprise AI implementation services",
+    "AI strategy and implementation",
+    "automate business workflows AI",
+    "fractional CTO AI automation",
+    "AI consulting finance healthcare",
+    "workplace automation consultant",
+    "AI implementation North America",
+    "Azure OpenAI consultant",
+    "AI agents MCP RAG",
   ],
   authors: [{ name: site.founder.name }],
   openGraph: {
@@ -84,6 +89,103 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${site.url}/#organization`,
+      name: site.legal,
+      url: site.url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${site.url}/favicon.svg`,
+      },
+      description: site.description,
+      telephone: site.phone,
+      email: site.email,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: site.founder.location,
+        addressCountry: "US",
+      },
+      areaServed: ["US", "CA"],
+      sameAs: [site.linkedin],
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: site.phone,
+        email: site.email,
+        contactType: "sales",
+        areaServed: ["US", "CA"],
+        availableLanguage: ["English", "French", "Spanish"],
+      },
+    },
+    {
+      "@type": "Person",
+      "@id": `${site.url}/#founder`,
+      name: site.founder.name,
+      jobTitle: site.founder.title,
+      worksFor: { "@id": `${site.url}/#organization` },
+      url: site.linkedin,
+      sameAs: [site.linkedin],
+      knowsAbout: [
+        "Artificial Intelligence",
+        "AI Implementation",
+        "Business Process Automation",
+        "Enterprise Software",
+        "Machine Learning",
+        "Azure OpenAI",
+        "LLMs",
+        "RAG pipelines",
+      ],
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${site.url}/#service`,
+      name: site.legal,
+      url: site.url,
+      description:
+        "Hands-on AI implementation consulting — from workflow analysis to production automation systems.",
+      provider: { "@id": `${site.url}/#organization` },
+      areaServed: ["US", "CA"],
+      serviceType: "AI Implementation Consulting",
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "AI Consulting Engagements",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "AI Readiness Sprint",
+              description:
+                "2-week fixed-fee engagement: workflow discovery, data inventory, prioritized automation opportunities, ROI estimates, and executive readout.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Pilot Build",
+              description:
+                "4–8 week milestone-based engagement: production-grade AI pilot — agents, RAG, or automation — integrated with your existing systems.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Embedded CTO / Platform Partner",
+              description:
+                "3–12 month retainer: ongoing AI engineering leadership, roadmap ownership, vendor evaluation, and team ramp support.",
+            },
+          },
+        ],
+      },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -94,6 +196,12 @@ export default function RootLayout({
       lang="en"
       className={`dark ${inter.variable} ${space.variable} ${jetbrains.variable}`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <BackgroundFX />
         <Navbar />

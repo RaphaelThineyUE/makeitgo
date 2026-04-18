@@ -6,11 +6,11 @@ export const site = {
   tagline: "We make IT go.",
   description:
     "MakeItGo helps companies actually implement AI — we analyze your processes, design automation strategy, and ship working systems. Not just ChatGPT licenses.",
-  url: "https://makeitgo.ai",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://makeitgo.vercel.app",
   email:
     process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "raphael.dambournet@gmail.com",
-  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+16465121378",
-  phoneDisplay: "(646) 512-1378",
+  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+16465121379",
+  phoneDisplay: "(646) 512-1379",
   bookingUrl:
     process.env.NEXT_PUBLIC_BOOKING_URL ??
     "https://calendly.com/raphi-makeitgo/intro",
