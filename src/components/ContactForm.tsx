@@ -10,10 +10,36 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
 type Status = "idle" | "submitting" | "success" | "error";
+type FieldErrors = Record<string, string>;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^[\d\s().+\-]{7,20}$/;
+
+function validateFields(data: FormData): FieldErrors {
+  const errs: FieldErrors = {};
+  const name = (data.get("name") as string | null)?.trim() ?? "";
+  const email = (data.get("email") as string | null)?.trim() ?? "";
+  const message = (data.get("message") as string | null)?.trim() ?? "";
+  const phone = (data.get("phone") as string | null)?.trim() ?? "";
+
+  if (!name) errs.name = "Name is required.";
+  else if (name.length < 2) errs.name = "Name must be at least 2 characters.";
+
+  if (!email) errs.email = "Email is required.";
+  else if (!EMAIL_RE.test(email)) errs.email = "Enter a valid email address.";
+
+  if (phone && !PHONE_RE.test(phone)) errs.phone = "Enter a valid phone number.";
+
+  if (!message) errs.message = "Please describe what you're trying to solve.";
+  else if (message.length < 10) errs.message = "Message must be at least 10 characters.";
+
+  return errs;
+}
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const { toast } = useToast();
 
   const formspreeId = site.formspreeId;
@@ -21,12 +47,25 @@ export default function ContactForm() {
     ? `https://formspree.io/f/${formspreeId}`
     : null;
 
+  function clearFieldError(name: string) {
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => { const next = { ...prev }; delete next[name]; return next; });
+    }
+  }
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
 
     const form = e.currentTarget;
     const data = new FormData(form);
+
+    const errs = validateFields(data);
+    if (Object.keys(errs).length > 0) {
+      setFieldErrors(errs);
+      return;
+    }
+    setFieldErrors({});
 
     if (!endpoint) {
       const body = [
@@ -103,12 +142,12 @@ export default function ContactForm() {
       className="glass grid gap-4 rounded-2xl p-6 md:p-8"
     >
       <div className="grid gap-4 md:grid-cols-2">
-        <Field label="Your name" name="name" required />
-        <Field label="Company" name="company" />
+        <Field label="Your name" name="name" required error={fieldErrors.name} onClearError={clearFieldError} />
+        <Field label="Company" name="company" error={fieldErrors.company} onClearError={clearFieldError} />
       </div>
       <div className="grid gap-4 md:grid-cols-2">
-        <Field label="Email" name="email" type="email" required />
-        <Field label="Phone (optional)" name="phone" type="tel" />
+        <Field label="Email" name="email" type="email" required error={fieldErrors.email} onClearError={clearFieldError} />
+        <Field label="Phone (optional)" name="phone" type="tel" error={fieldErrors.phone} onClearError={clearFieldError} />
       </div>
       <Field
         label="What are you trying to solve?"
@@ -116,6 +155,8 @@ export default function ContactForm() {
         required
         textarea
         placeholder="A few sentences on the business problem, where the friction is, and what 'success' looks like for you."
+        error={fieldErrors.message}
+        onClearError={clearFieldError}
       />
 
       {!formspreeId && (
@@ -162,6 +203,8 @@ function Field({
   required,
   textarea,
   placeholder,
+  error,
+  onClearError,
 }: {
   label: string;
   name: string;
@@ -169,8 +212,21 @@ function Field({
   required?: boolean;
   textarea?: boolean;
   placeholder?: string;
+  error?: string;
+  onClearError?: (name: string) => void;
 }) {
   const id = `field-${name}`;
+  const errId = `${id}-error`;
+  const invalid = Boolean(error);
+  const sharedProps = {
+    id,
+    name,
+    required,
+    "aria-invalid": invalid || undefined,
+    "aria-describedby": invalid ? errId : undefined,
+    onChange: () => onClearError?.(name),
+    className: invalid ? "border-red-400 focus-visible:ring-red-400" : undefined,
+  };
   return (
     <div className="grid gap-1.5">
       <Label htmlFor={id}>
@@ -178,21 +234,15 @@ function Field({
         {required && <span className="ml-1 text-amber-glow">*</span>}
       </Label>
       {textarea ? (
-        <Textarea
-          id={id}
-          name={name}
-          required={required}
-          rows={5}
-          placeholder={placeholder}
-        />
+        <Textarea {...sharedProps} rows={5} placeholder={placeholder} />
       ) : (
-        <Input
-          id={id}
-          type={type}
-          name={name}
-          required={required}
-          placeholder={placeholder}
-        />
+        <Input {...sharedProps} type={type} placeholder={placeholder} />
+      )}
+      {error && (
+        <p id={errId} className="flex items-center gap-1 text-xs text-red-400">
+          <AlertTriangle className="h-3 w-3 flex-shrink-0" />
+          {error}
+        </p>
       )}
     </div>
   );
